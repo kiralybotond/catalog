@@ -6,15 +6,15 @@ import java.util.List;
 
 public class CatalogItem {
 
-    private String registrationNumber;
-    private int price;
+    private final String registrationNumber;
+    private final int price;
     private List<Feature> features = new ArrayList<>();
 
     public CatalogItem(String registrationNumber, int price, Feature... features) {
-        if (Validators.isBlank(registrationNumber)) {
+        if (Validators.isBlank(registrationNumber) || Validators.isEmpty(Arrays.asList(features))) {
             throw new IllegalArgumentException("Parameter should not be null or empty");
         }
-        if (price < 0) {   //TODO: annak is van értelme, hogy az ár nulla.
+        if (price < 0) {   // annak is van értelme, hogy az ár nulla.
             throw new IllegalArgumentException("Invalid price");
         }
         this.registrationNumber = registrationNumber;
@@ -73,7 +73,7 @@ public class CatalogItem {
         int totalNumberOfPages = 0;
         for (Feature item : features) {
             if (item instanceof PrintedFeatures) {
-                totalNumberOfPages += item.getNumberOfPages();
+                totalNumberOfPages += ((PrintedFeatures) item).getNumberOfPages();
             }
         }
         return totalNumberOfPages;
@@ -83,7 +83,7 @@ public class CatalogItem {
         int totalNumberOfPages = 0;
         for (Feature item : features) {
             if (item instanceof AudioFeatures) {
-                totalNumberOfPages += item.getLength();
+                totalNumberOfPages += ((AudioFeatures) item).getLength();
             }
         }
         return totalNumberOfPages;

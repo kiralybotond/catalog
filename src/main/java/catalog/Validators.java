@@ -1,10 +1,11 @@
 package catalog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Validators {
 
-    public static boolean isEmpty(List<Object> list) {
+    public static boolean isEmpty(List list) {
         return list == null || list.size() == 0;
     }
 
